@@ -1,1 +1,38 @@
+Од стандарден влез се чита број n а потоа се чита и низа составена од n реални броеви. 
+На екран да се испечати елементот кој што е најблиску до средната вредност на елементите на низата.
+
+
+
+#include <iostream>
+#include <cstring>
+#include <iomanip>
+#include <math.h>
+using namespace std;
+
+int main(){
+
+    int n;
+    cin>>n;
+    float niza[n];
+    float sum=0.0;
+    float avgg=0.0;
+    
+    for (int i=0;i<n;i++){
+        cin>>niza[i];
+        sum+=niza[i];
+    }
+    avgg=sum/n;
+   
+    int bitenN;
+    int najmalenka=9999;
+    
+    for (int i=0; i<n; i++) {
+        if(abs(niza[i]-avgg)<najmalenka){
+            najmalenka=abs(niza[i]-avgg);
+            bitenN=i;
+        }
+    }
+    printf("%.2f",niza[bitenN]);
+   
+}
 

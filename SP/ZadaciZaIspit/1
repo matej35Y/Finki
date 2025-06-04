@@ -1,0 +1,79 @@
+Четиринасочник претставува матрица во која се испишани зборови хоризонотално и вертикално, одлево-надесно и оддесно-налево.
+Притоа секој елемент од матрицата претставува буква од англиската азбука.
+
+пример скриени зборови: HAIR, OLE (прецртани), FISH, TOE (подвлечени)
+
+T H A I R E
+E S N K N E
+M I M J O L
+M F S P S T
+I F G E L O
+X U T Y O E
+Од стандарден влез се чита квадратна матрица од ред n (3 <= n <= 50), составена од знаци. Прво се чита бројот n - бројот на редици (колони) на матрицата, а потоа и самите елементи на матрицата (види пример).
+По читањето на матрицата, од стандарден влез се внесува збор составен од максимум 10 букви.
+
+Ваша задача е да определите дали тој збор се наоѓа во четиринасочникот (хоризонтално или вертикално, одлево-надесно или оддесно-налево).
+Потребно е да се испечати локацијата (ред, колона) на првата и последната буква од зборот. Доколку зборот повеќепати се наоѓа во четеринасочникот,
+треба да се испечати првото појавување, гледано елемент по елемент како што се чита матрицата.
+
+Доколку не се пронајде зборот, тогаш се печати Not Found.
+
+
+
+
+#include <iostream>
+#include <unordered_map>
+using namespace std;
+
+
+int main() {
+    int n;
+    cin >> n;
+
+    char matrix[500][500];
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> matrix[i][j];
+        }
+    }
+
+    string zbor;
+    cin >> zbor;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            string zborDesno;
+            string zborLevo;
+            string zborDole;
+            string zborGore;
+
+            int len = zbor.length();
+            for (int bukva = 0; bukva < zbor.length(); bukva++) {
+                if (j + bukva < n) zborDesno.push_back(matrix[i][j + bukva]);
+                if (j - bukva >= 0) zborLevo.push_back(matrix[i][j - bukva]);
+                if (i + bukva < n) zborDole.push_back(matrix[i + bukva][j]);
+                if (i - bukva >= 0) zborGore.push_back(matrix[i - bukva][j]);
+            }
+            if (zbor == zborDesno) {
+                cout << i << ", " << j << " -> " << i  << ", " << j + len - 1 << endl;
+                return 0;
+            }
+            if (zbor == zborLevo) {
+                cout << i << ", " << j << " -> " << i - len + 1 << ", " << j - len + 1 << endl;
+                return 0;
+            }
+            if (zbor == zborDole) {
+                cout << i << ", " << j << " -> " << i + len - 1 << ", " << j  << endl;
+                return 0;
+            }
+            if (zbor == zborGore) {
+                cout << i << ", " << j << " -> " << i - len + 1 << ", " << j << endl;
+                return 0;
+            }
+        }
+    }
+    cout << "Not Found" << endl;
+}
+
+

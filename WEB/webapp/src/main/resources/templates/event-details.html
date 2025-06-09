@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+        table {
+            width:100%;
+        }
+        table, td, th {
+            border: 1px solid black;
+            padding: 3px 2px;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th colspan="2">
+            Event Details
+        </th>
+        <th colspan="2">
+          <form th:action="@{'/events/events-list/delete/{id}' (id=${event.getId()})}"
+                th:method="DELETE">
+            <button type="submit"
+                    class="btn btn-sm btn-danger delete-event">
+              <i class="fa fa-trash">Delete</i>
+            </button>
+          </form>
+        </th>
+    </tr>
+    <tr>
+        <td><b>Event Name </b></td>
+        <td th:text="${event.getName()} ?: 'Event name'"></td>
+    </tr>
+    <tr>
+        <td><b>Event Description</b></td>
+        <td th:text="${event.getDescription()} ?: 'Event description'"></td>
+    </tr>
+    <tr>
+        <td><b>Event Popularity</b></td>
+        <td th:text="${event.getPopularityScore()} ?: 'Event popularity'"></td>
+    </tr>
+    <tr>
+        <td><b>Event Location</b></td>
+        <td th:text="${event.getLocation().getName()} ?: 'Event location'">Event location</td>
+    </tr>
+</table>
+<a type="button" class="btn btn-primary" href="/events/events-list">Back</a>
+</body>
+</html>

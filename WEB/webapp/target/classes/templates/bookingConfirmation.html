@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Booking - Confirmation</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+  <style>
+    body {
+      max-width: 900px;
+      margin: auto;
+      padding-top: 30px;
+    }
+    table {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <section>
+    <header class="mb-4">
+      <h1 class="text-center">Event Booking - Confirmation</h1>
+    </header>
+
+    <!-- Booking Confirmation Table -->
+    <div class="card mb-4">
+      <div class="card-header">
+        Your Booking Status
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-bordered mb-0">
+          <tbody>
+          <tr>
+            <th>Attendee Name</th>
+            <td th:text="${hostName} ?: 'Petko Petkov'"></td>
+          </tr>
+          <tr>
+            <th>Client IP Address</th>
+            <td th:text="${hostAddress} ?: '127.0.0.1'"></td>
+          </tr>
+          <tr>
+            <th>Booking for Event</th>
+            <td th:text="${eventName} ?: 'Oppenheimer'"></td>
+          </tr>
+          <tr>
+            <th>Number of Tickets</th>
+            <td th:text="${numOfTickets} ?: '2'"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Booking Search Form -->
+    <form class="mb-4" th:method="GET" th:action="@{/events/event-booking}">
+      <div class="form-group">
+        <label for="bookingSearch">Search Booking By Name</label>
+        <input type="text" class="form-control" id="bookingSearch" name="bookingSearch" placeholder="Enter attendee name">
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <!-- Saved Bookings List -->
+    <div th:each="savedBooking : ${savedBookingList}" class="card mb-3">
+      <div class="card-body">
+        <p><strong>Event Name:</strong> <span th:text="${savedBooking.getEventName()}"></span></p>
+        <p><strong>Number of Tickets:</strong> <span th:text="${savedBooking.getNumberOfTickets()}"></span></p>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+</body>
+</html>

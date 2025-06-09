@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Event</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <form action="/events/events-list/add" method="POST">
+                <input id="id" type="hidden" name="id"
+                       th:value="(${event} != null ? ${event.getId()} : '')">
+                <div class="form-group">
+                    <label for="name">Event name</label>
+                    <input type="text"
+                           class="form-control"
+                           id="name"
+                           name="name"
+                           th:value="(${event} != null ? ${event.getName()} : '')"
+                           required
+                           placeholder="Enter event name">
+                </div>
+                <div class="form-group">
+                    <label for="description">Event Description</label>
+                    <input type="text"
+                           class="form-control"
+                           id="description"
+                           name="description"
+                           th:value="(${event} != null ? ${event.getDescription()} : '')"
+                           placeholder="Enter event description">
+                </div>
+                <div class="form-group">
+                    <label for="popularityScore">Event Popularity Score</label>
+                    <input type="text"
+                           class="form-control"
+                           id="popularityScore"
+                           name="popularityScore"
+                           th:value="(${event} != null ? ${event.getPopularityScore()} : '')"
+                           placeholder="Enter event popularity score">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <select name="location" class="form-control">
+                        <option th:if="${event} != null"
+                                th:selected="${event.getLocation() != null &&
+                                event.getLocation().getId() == location.getId()}"
+                                th:each="location : ${locations}"
+                                th:value="${location.getId()}"
+                                th:text="${location.getName()}">
+                        </option>
+                        <option th:if="${event} == null"
+                                th:each="location : ${locations}"
+                                th:value="${location.getId()}"
+                                th:text="${location.getName()}">
+                        </option>
+                    </select>
+                </div>
+
+                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                <a type="button" class="btn btn-primary" href="/events/events-list">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
